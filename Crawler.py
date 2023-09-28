@@ -54,7 +54,7 @@ def extractData(filename):
         counter = counter + 1
 #####################################################################################################################
 NumberOfPageVisits=100
-startCrawlingProcess("https://azure.microsoft.com/nl-nl","Azure.txt")
+startCrawlingProcess("https://azure.microsoft.com/","Azure.txt")
 
 
 
