@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from inscriptis import get_text
+from urllib.parse import urlparse
 #####################################################################################################################
 pageVisits = set()
 stackofURLs=set()
@@ -28,11 +29,13 @@ def fetchURLs(seed):
     driver.get(seed)
     driver.implicitly_wait(0.5)
     links = driver.find_elements(By.TAG_NAME, 'a')
+    domain=urlparse(seed).netloc
     # Iterate over link elements
     for link in links:
-        if(link.get_attribute('href') not in pageVisits):
-            pageVisits.add(link.get_attribute('href'))
-            stackofURLs.add(link.get_attribute('href'))
+        newURL=link.get_attribute('href')
+        if((newURL not in pageVisits) and (urlparse(newURL).netloc==domain)):
+            pageVisits.add(newURL)
+            stackofURLs.add(newURL)
         if(len(pageVisits)>NumberOfPageVisits):
             break
         print ('['+str(len(pageVisits))+'] Adding URL: '+link.get_attribute('href'))
@@ -55,7 +58,4 @@ def extractData(filename):
 #####################################################################################################################
 NumberOfPageVisits=100
 startCrawlingProcess("https://azure.microsoft.com/","Azure.txt")
-
-
-
-
+#startCrawlingProcess("https://aws.amazon.com/","AWS.txt")
