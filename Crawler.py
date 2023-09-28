@@ -43,9 +43,9 @@ def startCrawlingProcess(seed,filename):
     while len(pageVisits)<NumberOfPageVisits:
         if(len(stackofURLs)>0):
             fetchURLs(stackofURLs.pop())
-    dataExtraction(filename)
+    extractData(filename)
 #####################################################################################################################
-def dataExtraction(filename):
+def extractData(filename):
     counter =1
     while pageVisits:
         URL=pageVisits.pop()
